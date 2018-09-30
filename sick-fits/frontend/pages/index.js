@@ -1,12 +1,9 @@
 import Link from 'next/link';
 
-const Home = () => {
-    return (
-        <div>
-            <h1>Home</h1>
-            
-        </div>
-    );
-};
+const Home = props => (
+  <div>
+    <p>Hey!</p>
+  </div>
+);
 
 export default Home;
