@@ -19,10 +19,15 @@ const Mutations = {
         // remove the ID from the updates
         delete updates.id;
         // run the update method
-        return ctx.db.mutation.updateItem({
-            data: updates,
-            where: args.id
-        }, info); // Lets updateItem know how to return item
+        return ctx.db.mutation.updateItem(
+            {
+                data: updates,
+                where: {
+                    id: args.id
+                }
+            },
+            info
+        ); // Lets updateItem know how to return item
     }
 };
 
