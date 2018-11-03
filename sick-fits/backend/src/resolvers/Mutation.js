@@ -1,7 +1,6 @@
 const Mutations = {
     async createItem(parent, args, ctx, info) {
         // TODO: Check if they are logged in
-
         const item = await ctx.db.mutation.createItem(
             {
                 data: {
@@ -13,7 +12,7 @@ const Mutations = {
 
         return item;
     },
-    async updateItem(parent, args, ctx, info) {
+    updateItem(parent, args, ctx, info) {
         // first take a copy of the updates
         const updates = { ...args };
         // remove the ID from the updates
@@ -27,7 +26,16 @@ const Mutations = {
                 }
             },
             info
-        ); // Lets updateItem know how to return item
+        ); // `info` Lets updateItem know how to return item
+    },
+    async deleteItem(parent, args, ctx, info) {
+        const where = { id: args.id };
+        // 1. find item
+        const item = await ctx.db.query.item({ where }, `{ id title }`);
+        // 2. check if they own that item, or have permissions
+        // TODO
+        // 3. delete
+        return ctx.db.mutation.deleteItem({ where }, info);
     }
 };
 
