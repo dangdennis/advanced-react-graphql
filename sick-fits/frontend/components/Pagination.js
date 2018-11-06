@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import Head from "next/head";
 import PaginationStyles from "../components/styles/PaginationStyles";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
@@ -14,18 +16,50 @@ const PAGINATION_QUERY = gql`
   }
 `;
 
-export default function Pagination() {
+export default function Pagination(props) {
   return (
-    <PaginationStyles>
-      <p>Hi, I am pagination</p>
-      <Query query={PAGINATION_QUERY}>
-        {({ data, error, loading }) => {
-          if (loading) return <p>Loading...</p>;
-          const count = data.itemsConnection.aggregate.count;
-          const pages = Math.ceil(count / perPage);
-          return <p>Page 1 of {pages}!</p>;
-        }}
-      </Query>
-    </PaginationStyles>
+    <Query query={PAGINATION_QUERY}>
+      {({ data, error, loading }) => {
+        if (loading) return <p>Loading...</p>;
+        const count = data.itemsConnection.aggregate.count;
+        const pages = Math.ceil(count / perPage);
+        const page = props.page;
+        console.log("data", data);
+        return (
+          <PaginationStyles>
+            <Head>
+              <title>
+                Sick Fits! - Page {page} of {pages}
+              </title>
+            </Head>
+            <Link
+              prefetch
+              href={{
+                pathname: "items",
+                query: { page: page - 1 }
+              }}
+            >
+              <a className="prev" aria-disabled={page <= 1}>
+                Prev
+              </a>
+            </Link>
+            <p>
+              Page {page} of {pages}!
+            </p>
+            <p>{count} Items Total</p>
+            <Link
+              href={{
+                pathname: "items",
+                query: { page: page + 1 }
+              }}
+            >
+              <a className="next" aria-disabled={page >= pages}>
+                Next
+              </a>
+            </Link>
+          </PaginationStyles>
+        );
+      }}
+    </Query>
   );
 }

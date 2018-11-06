@@ -6,15 +6,12 @@ import NProgress from 'nprogress';
 
 Router.onRouteChangeStart = () => {
     NProgress.start();
-    console.log('Triggered');
 };
 Router.onRouteChangeComplete = () => {
     NProgress.done();
-    console.log('Triggered');
 };
 Router.onRouteChangeError = () => {
     NProgress.done();
-    console.log('Triggered');
 };
 
 const Header = () => (
