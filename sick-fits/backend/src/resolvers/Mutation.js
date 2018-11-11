@@ -44,14 +44,14 @@ const Mutations = {
         // lowercase their email
         args.email = args.email.toLowerCase();
         // hash their password
+        console.log(args);
         args.password = await bcrypt.hash(args.password, 10);
         // create the user in the database
         const user = await ctx.db.mutation.createUser(
             {
                 data: {
                     ...args,
-                    password,
-                    permissions: { set: ['USER'] }
+                    permission: { set: ['USER'] }
                 }
             },
             info
