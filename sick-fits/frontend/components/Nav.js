@@ -5,12 +5,14 @@ import Signout from "./Signout";
 
 const Nav = () => (
   <User>
-    {({ data: { me } }) => (
-      <NavStyles>
-        <Link href="/items">
-          <a>Shop</a>
-        </Link>
-        {me && (
+    {data => {
+      console.log(data);
+      return (
+        <NavStyles>
+          <Link href="/items">
+            <a>Shop</a>
+          </Link>
+          {/* {me && ( */}
           <>
             <Link href="/sell">
               <a>Sell</a>
@@ -21,16 +23,17 @@ const Nav = () => (
             <Link href="/me">
               <a>Account</a>
             </Link>
-            <Signout />
+            {/* <Signout /> */}
           </>
-        )}
-        {!me && (
+          {/* )} */}
+          {/* {!me && ( */}
           <Link href="/signup">
             <a>Sign In</a>
           </Link>
-        )}
-      </NavStyles>
-    )}
+          )}
+        </NavStyles>
+      );
+    }}
   </User>
 );
 

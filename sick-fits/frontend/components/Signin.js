@@ -51,6 +51,7 @@ export default class Signin extends Component {
                 <label htmlFor="email">
                   Email
                   <input
+                    autoComplete="email"
                     type="email"
                     name="email"
                     placeholder="email"
@@ -61,6 +62,7 @@ export default class Signin extends Component {
                 <label htmlFor="password">
                   Password
                   <input
+                    autoComplete="current-password"
                     type="password"
                     name="password"
                     placeholder="password"
