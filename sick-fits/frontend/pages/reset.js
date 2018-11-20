@@ -1,8 +1,7 @@
 import Reset from '../components/Reset';
 
 const Sell = props => (
-  <div>
-    <p>Reset Your Password {props.query.resetToken}</p>
+  <div style={{ maxWidth: '600px', margin: '0 auto' }}>
     <Reset resetToken={props.query.resetToken} />
   </div>
 );
