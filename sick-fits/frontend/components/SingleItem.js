@@ -41,7 +41,6 @@ export default class SingleItem extends Component {
   render() {
     return (
       <div>
-        <p>SingleItem Component</p>
         <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
           {({ error, loading, data }) => {
             const item = data.item;
