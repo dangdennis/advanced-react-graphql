@@ -8,7 +8,6 @@ import Signout from './Signout';
 const Nav = () => (
   <User>
     {({ data: { me } }) => {
-      console.log(me);
       return (
         <NavStyles>
           <Link href="/items">
