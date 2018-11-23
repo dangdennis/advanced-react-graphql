@@ -19,6 +19,7 @@ type Mutation {
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
   resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
+  addToCart(id: ID!): CartItem
 }
 
 type Query {
@@ -34,4 +35,5 @@ type User implements Node {
   name: String!
   email: String!
   permission: [Permission!]!
+  cart: [CartItem!]!
 }

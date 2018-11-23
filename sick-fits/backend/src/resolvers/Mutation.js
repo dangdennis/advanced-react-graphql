@@ -51,7 +51,7 @@ const Mutations = {
     const hasPermissions = ctx.request.user.permission.some(permission =>
       ['ADMIN', 'ITEMDELETE'].includes(permission)
     );
-    
+
     if (!ownsItem && hasPermissions) {
       throw new Error("You don't have permission to do that");
     }
@@ -176,6 +176,52 @@ const Mutations = {
     });
     // 8. return the new user
     return updatedUser;
+  },
+  async addToCart(parent, args, ctx, info) {
+    // 1. Make sure they are signed in
+    const userId = ctx.request.userId;
+    if (!userId) {
+      throw new Error('You must be signed in!');
+    }
+
+    // 2. Query the users current car
+    const [existingCartItem] = await ctx.db.query.cartItems(
+      {
+        where: {
+          user: { id: userId },
+          item: { id: args.Id }
+        }
+      },
+      info
+    );
+    console.log(existingCartItem);
+    // 3. Check if that item is already in their cart and increment by 1 if true
+    if (existingCartItem) {
+      console.log('This item is already in their cart');
+      return ctx.db.mutation.updateCartItem(
+        {
+          where: {
+            id: existingCartItem.id
+          },
+          data: {
+            quantity: existingCartItem.quantity + 1
+          }
+        },
+        info
+      );
+    }
+
+    // 4. Else, create a fresh cartItem for the user
+    return ctx.db.mutation.createCartItem({
+      data: {
+        user: {
+          connect: { id: userId }
+        },
+        item: {
+          connect: { id: args.id }
+        }
+      }
+    });
   }
 };
 
