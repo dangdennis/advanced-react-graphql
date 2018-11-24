@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const CartStyles = styled.div`
+  overflow-y: scroll;
   padding: 20px;
   position: relative;
   background: white;
