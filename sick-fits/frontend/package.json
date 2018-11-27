@@ -7,7 +7,8 @@
     "dev": "next -p 7777",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch NODE_ENV=test ",
+    "test": "NODE_ENV=test jest --watch",
+    "test-win": "SET NODE_ENV=test&& jest --watch",
     "heroku-postbuild": "next build"
   },
   "author": "",
@@ -38,6 +39,8 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "babel-core": "^7.0.0-bridge",
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "casual": "^1.5.19",
@@ -54,7 +57,8 @@
     ],
     "transform": {
       "\\.(gql|graphql)$": "jest-transform-graphql",
-      ".*": "babel-jest"
+      ".*": "babel-jest",
+      "^.+\\.js?$": "babel-jest"
     }
   },
   "//": "This is our babel config, I prefer this over a .babelrc file",
