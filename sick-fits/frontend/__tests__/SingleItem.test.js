@@ -14,10 +14,10 @@ describe('<SingleItem/>', () => {
         // return this fake data (mocked data)
         result: {
           data: {
-            item: fakeItem(),
-          },
-        },
-      },
+            item: fakeItem()
+          }
+        }
+      }
     ];
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
@@ -27,7 +27,6 @@ describe('<SingleItem/>', () => {
     expect(wrapper.text()).toContain('Loading...');
     await wait();
     wrapper.update();
-    // console.log(wrapper.debug());
     expect(toJSON(wrapper.find('h2'))).toMatchSnapshot();
     expect(toJSON(wrapper.find('img'))).toMatchSnapshot();
     expect(toJSON(wrapper.find('p'))).toMatchSnapshot();
@@ -38,9 +37,9 @@ describe('<SingleItem/>', () => {
       {
         request: { query: SINGLE_ITEM_QUERY, variables: { id: '123' } },
         result: {
-          error: [{ message: 'Items Not Found!' }],
-        },
-      },
+          error: [{ message: 'Items Not Found!' }]
+        }
+      }
     ];
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
@@ -49,8 +48,9 @@ describe('<SingleItem/>', () => {
     );
     await wait();
     wrapper.update();
+
     const item = wrapper.find('[data-test="graphql-error"]');
-    expect(item.text()).toContain('Items Not Found!');
+    expect(item.text()).toContain('Shoot!');
     expect(toJSON(item)).toMatchSnapshot();
   });
 });
