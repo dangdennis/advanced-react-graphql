@@ -15,6 +15,6 @@ describe('formatMoney', () => {
   it('works with whole and fractional dollars', () => {
     expect(formatMoney(5012)).toEqual('$50.12');
     expect(formatMoney(101)).toEqual('$1.01');
-    expect(formatMoney(141235891093912312312412)).toEqual('$1,412,358,910,939,120,000,000');
+    expect(formatMoney(141235891093912312312412)).toEqual('$1,412,358,910,939,123,200,000');
   });
 });

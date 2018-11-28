@@ -1,12 +1,12 @@
 import ItemComponent from '../components/Item';
 import { shallow, mount } from 'enzyme';
-import Item from '../components/styles/ItemStyles';
+import toJSON from 'enzyme-to-json';
 
 const fakeItem = {
   id: 'ABC',
   title: 'cool item',
   description: 'cool desc',
-  price: 5000,
+  price: 4000,
   image: 'test.jpg',
   largeImage: 'largeImage.jpg'
 };
@@ -14,7 +14,7 @@ const fakeItem = {
 describe('<Item/>', () => {
   it('renders and matches the snapshot', () => {
     const wrapper = shallow(<ItemComponent item={fakeItem} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(toJSON(wrapper)).toMatchSnapshot();
   })
   // it('renders the price tag and title', () => {
   //   const wrapper = shallow(<ItemComponent item={fakeItem} />);
