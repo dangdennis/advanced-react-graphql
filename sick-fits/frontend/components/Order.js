@@ -39,11 +39,10 @@ export default class Order extends Component {
     return (
       <Query query={SINGLE_ORDER_QUERY} variables={{ id: this.props.id }}>
         {({ data: { order }, loading, error }) => {
-          console.log(order);
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading...</p>;
           return (
-            <OrderStyles>
+            <OrderStyles data-test="order">
               <Head>
                 <title>Sick Fits - Order {order.id}</title>
               </Head>
@@ -57,7 +56,9 @@ export default class Order extends Component {
               </p>
               <p>
                 <span>Date</span>
-                <span>{format(order.createdAt, 'MMMM d, YYYY h:mm a')}</span>
+                <span>
+                  {format(order.createdAt, 'MMMM d, YYYY h:mm a', { awareOfUnicodeTokens: true })}
+                </span>
               </p>
               <p>
                 <span>Order Total</span>
@@ -88,3 +89,5 @@ export default class Order extends Component {
     );
   }
 }
+
+export { SINGLE_ORDER_QUERY };
